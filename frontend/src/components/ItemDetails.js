@@ -5,6 +5,7 @@ const ItemDetails = ({item})=>{
             <p><strong>Location:</strong>{item.location}</p>
             <p><strong>Picture:</strong><img src={item.pic}/></p>
             <p><strong>Room:</strong>{item.room}</p>
+            <p><strong>Duration:</strong>{item.duration}</p>
             <br></br>
             <hr></hr>
         </div>

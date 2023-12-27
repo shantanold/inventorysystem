@@ -1,35 +1,40 @@
 import {useState} from 'react'
+import { useFurnitureContext } from '../hooks/useFurnitureContext'
 const ItemForm = () =>{
+    const {dispatch} = useFurnitureContext()
     const [desc,setDesc] = useState('')
     const [location, setLocation] = useState('')
     const [pic, setPic] = useState('')
     const [room, setRoom] = useState('')
     const [duration, setDuration] = useState('')
     const [error, setError] = useState(null)
-    const handleSubmit = async (e) =>{
-        e.preventDefault()
-        const item = {desc,location,pic,room,duration}
-        const response = await fetch('/api/furniture',{
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const item = { desc, location, pic, room, duration };
+        const response = await fetch('/api/furniture', {
             method: 'POST',
             body: JSON.stringify(item),
             headers: {
-                'Content-Type':'application/json'
-            }
-        })
-        const json = await response.json
-        if(!response.ok){
-            setError(json.error)
+                'Content-Type': 'application/json',
+            },
+        });
+        const json = await response.json();
+    
+        if (!response.ok) {
+            setError(json.error);
         }
-        if(response.ok){
-            setError(null)
-            setDesc('')
-            setLocation('')
-            setPic('')
-            setRoom('')
-            setDuration('')
-            console.log("new workout added", json)
+    
+        if (response.ok) {
+            setError(null);
+            setDesc('');
+            setLocation('');
+            setPic('');
+            setRoom('');
+            setDuration('');
+    
+            dispatch({ type: 'CREATE_ITEM', payload: json });
         }
-    }
+    };
     return(
         <form className ="create" onSubmit={handleSubmit}>
             <h3>Add a new Furniture Piece</h3>
