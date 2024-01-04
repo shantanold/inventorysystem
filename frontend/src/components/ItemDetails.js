@@ -1,14 +1,26 @@
-const ItemDetails = ({item})=>{
+import ItemRow from "./ItemRow";
+import "./tableStyles.css"
+const ItemDetails = ({ items }) => {
+    console.log(items)
     return (
-        <div className = "item-details">
-            <h4>{item.desc}</h4>
-            <p><strong>Location:</strong>{item.location}</p>
-            <p><strong>Picture:</strong><img src={item.pic}/></p>
-            <p><strong>Room:</strong>{item.room}</p>
-            <p><strong>Duration:</strong>{item.duration}</p>
-            <br></br>
-            <hr></hr>
-        </div>
-    )
-}
-export default ItemDetails
+       
+      <div>
+       <table className="styled-table">
+          <tr>
+              <td>Description</td>
+              <td>Location</td>
+              <td>Picture</td>
+              <td>Room</td>
+              <td>Duration</td>
+          </tr>
+          {items && items.map((item)=>(
+              <ItemRow item={item}/>  
+                ))}
+         
+       </table>
+      </div>
+    );
+  };
+  
+  export default ItemDetails;
+  

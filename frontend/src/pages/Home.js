@@ -19,9 +19,8 @@ const Home = () =>{
     return (
         <div className='home'>
             <div className='items'>
-            {items && items.map((item)=>(
-                <ItemDetails key={item._id} item={item}/>
-            ))}
+                <ItemDetails  items={items}/>
+            
             </div>
         <ItemForm/>
         </div>
