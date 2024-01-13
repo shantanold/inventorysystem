@@ -8,6 +8,7 @@ const ItemForm = () =>{
     const [room, setRoom] = useState('')
     const [duration, setDuration] = useState('')
     const [error, setError] = useState(null)
+    const [emptyFields, setEmptyFields] = useState([])
     const handleSubmit = async (e) => {
         e.preventDefault();
         const item = { desc, location, pic, room, duration };
@@ -22,6 +23,7 @@ const ItemForm = () =>{
     
         if (!response.ok) {
             setError(json.error);
+            setEmptyFields(json.emptyFields)
         }
     
         if (response.ok) {
@@ -31,7 +33,7 @@ const ItemForm = () =>{
             setPic('');
             setRoom('');
             setDuration('');
-    
+            setEmptyFields([])
             dispatch({ type: 'CREATE_ITEM', payload: json });
         }
     };
@@ -43,12 +45,14 @@ const ItemForm = () =>{
             type='text'
             onChange={(e)=>setDesc(e.target.value)}
             value={desc}
+            className={emptyFields.includes('Description') ? 'error':''}
             />
              <label>Current Location of Item</label>
             <input 
             type='text'
             onChange={(e)=>setLocation(e.target.value)}
             value={location}
+            className={emptyFields.includes('Location') ? 'error':''}
             />
             <label>Optional Picture</label>
             <input 
@@ -61,12 +65,14 @@ const ItemForm = () =>{
             type='text'
             onChange={(e)=>setRoom(e.target.value)}
             value={room}
+            className={emptyFields.includes('Room') ? 'error':''}
             />
             <label>How long will it be at this location?</label>
             <input 
             type='number'
             onChange={(e)=>setDuration(e.target.value)}
             value={duration}
+            className={emptyFields.includes('Duration') ? 'error':''}
             />
 
             <button>Add item!</button>

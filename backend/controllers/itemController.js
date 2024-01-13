@@ -26,6 +26,23 @@ const getItem = async(req,res)=>{
 const createItem = async(req,res) => {
     const {desc,location, pic, room, duration}=req.body
 
+    let emptyFields = []
+    if(!desc){
+        emptyFields.push('Description')
+    }
+    if(!location){
+        emptyFields.push("Location")
+    }
+    if(!room){
+        emptyFields.push("Room")
+    }
+    if(!duration){
+        emptyFields.push("Duration")
+    }
+    if(emptyFields.length>0){
+        return res.status(400).json({error: 'Please fll in all the fields',emptyFields})
+    }
+
     //add doc to db
     try{
         const item = await Item.create({desc,location, pic, room, duration})

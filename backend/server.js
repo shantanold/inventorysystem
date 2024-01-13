@@ -24,7 +24,7 @@ mongoose.connect(process.env.MONGO_URI)
     
 })
 .catch((error)=>{
-    console.log(error)
+    console.log(error, "is causing errors!")
 })
 //listen for requests
 

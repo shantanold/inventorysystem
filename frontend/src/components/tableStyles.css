@@ -10,11 +10,23 @@
     padding: 8px;
     text-align: left;
   }
-  
+  .styled-table .delete-button{
+    border-color:transparent;
+  }
   .styled-table th {
     background-color: #f2f2f2;
   }
-  
+  .icon {
+    display: inline-block;
+    width: 65px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #EF2D56; /* You can change the background color as per your design */
+    color: #f2f2f2;
+    font-size: 18px;
+    text-align: center;
+    line-height: 30px;
+  }
   .styled-table img {
     max-width: 100%;
     height: auto;

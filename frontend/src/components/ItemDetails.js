@@ -14,7 +14,7 @@ const ItemDetails = ({ items }) => {
               <td>Duration</td>
           </tr>
           {items && items.map((item)=>(
-              <ItemRow item={item}/>  
+              <ItemRow item={item}/>
                 ))}
          
        </table>
