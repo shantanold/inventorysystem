@@ -1,4 +1,17 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+.border-b-1 {
+    border-bottom-width: 1px;
+    border-color:rgba(174, 174, 198, 0.5);
+    
+}
 
+.navButton{
+    font-size:12;
+    padding-top:2px;
+    padding-bottom: 2px;
+    border-style: solid;
+    border-width:1px;
+    
+}

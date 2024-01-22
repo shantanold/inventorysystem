@@ -6,6 +6,22 @@ const getItems = async(req,res)=>{
     const items = await Item.find({}).sort({createdAt:-1})
     res.status(200).json(items)
 }
+const getItemsDescriptionSorted = async(req,res)=>{
+    const items = await Item.find({}).sort({desc:-1})
+    res.status(200).json(items)
+}
+const getItemsLocationSorted = async(req,res)=>{
+    const items = await Item.find({}).sort({location:-1})
+    res.status(200).json(items)
+}
+const getItemsRoomSorted = async(req,res)=>{
+    const items = await Item.find({}).sort({room:-1})
+    res.status(200).json(items)
+}
+const getItemsDurationSorted = async(req,res)=>{
+    const items = await Item.find({}).sort({duration:-1})
+    res.status(200).json(items)
+}
 //get a single item
 const getItem = async(req,res)=>{
     const {id} = req.params
@@ -89,5 +105,9 @@ module.exports = {
     getItems,
     getItem,
     deleteItem,
-    updateItem
+    updateItem,
+    getItemsDescriptionSorted,
+    getItemsDurationSorted,
+    getItemsLocationSorted,
+    getItemsRoomSorted,
 }

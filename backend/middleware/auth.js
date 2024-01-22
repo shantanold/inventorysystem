@@ -1,23 +1,37 @@
-const jwt = require("jsonwebtoken");
+require('dotenv').config()
+const { MongoClient } = require('mongodb');
+const bcrypt = require('bcrypt');
 
-const auth = async (req, res, next) => {
+// Replace with your MongoDB connection string
+const uri = process.env.MONGO_URI
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+async function authenticateUser(username, password) {
   try {
-    const token = req.header("x-auth-token");
-    if (!token)
-      return res
-        .status(401)
-        .json({ msg: "No auth token, access denied" });
-    const verified = jwt.verify(token, "passwordKey");
-    if (!verified)
-      return res
-        .status(401)
-        .json({ msg: "Token verification failed, authorization denied" });
-    // since the token was made out of the document id
-    req.user = verified.id;
-    next();
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
+    await client.connect();
+    console.log('Connected to the database');
 
-module.exports = auth;
+    const database = client.db('userList');
+    const collection = database.collection('usernames');
+
+    // Find user by username
+    const user = await collection.findOne({ email: username });
+
+    if (user) {
+      // Compare passwords
+      const passwordsMatch = await bcrypt.compare(password, user.hashedPassword);
+
+      if (passwordsMatch) {
+        console.log('Login successful!');
+      } else {
+        console.log('Invalid password');
+      }
+    } else {
+      console.log('User not found');
+    }
+  } finally {
+    await client.close();
+    console.log('Connection closed');
+  }
+}
+export default authenticateUser
