@@ -15,13 +15,13 @@ const {
 
 router.get('/',getItems)
 
-router.get('/item/:id',getItem)
+router.get('/:id',getItem)
 
 router.post('/',createItem)
 
-router.delete('/item/:id',deleteItem)
+router.delete('/:id',deleteItem)
 
-router.patch('/item/:id',updateItem)
+router.patch('/:id',updateItem)
 
 router.get('/desc',getItemsDescriptionSorted)
 

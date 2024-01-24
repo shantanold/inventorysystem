@@ -1,8 +1,29 @@
 import ItemRow from "./ItemRow";
 import "./tableStyles.css"
 import { FaSort } from "react-icons/fa";
+import {useState, useEffect} from 'react';
+import axios from 'axios'
 const ItemDetails = ({ items }) => {
-    console.log(items)
+   const [data, setData] = useState([]);
+   const [sortBy, setSortBy]=useState('')
+    const fetchData = async () => {
+      try {
+          const response = await axios.get(`/api/furniture?sortBy=${sortBy}`);
+          console.log(response.data)
+          console.log(sortBy)
+          setData(response.data);
+      } catch (error) {
+          console.error(error);
+      }
+  };
+  useEffect(()=>{
+    
+    fetchData();
+  }, [sortBy]);
+  const handleSort= (sortByValue)=>{
+    setSortBy(sortByValue);
+  }
+
     const handleDescSort = async() =>{
       const response = await fetch('/api/furniture/desc', {
         method: 'GET',
@@ -48,11 +69,11 @@ const ItemDetails = ({ items }) => {
       <div>
        <table className="styled-table">
           <tr>
-              <td className="">Description <FaSort onClick={handleDescSort} className="inline-block"/></td>
-              <td>Location <FaSort onClick={handleLocationSort} className="inline-block"/></td>
+              <td className="">Description <button onClick={() => handleSort('desc')}><FaSort  className="inline-block"/></button></td>
+              <td>Location <button onClick={()=>handleSort('location')}><FaSort  className="inline-block"/></button></td>
               <td>Picture </td>
-              <td>Room <FaSort onClick={handleRoomSort} className="inline-block"/></td>
-              <td>Duration <FaSort onClick={handleDurationSort} className="inline-block"/></td>
+              <td>Room <button onClick={()=>handleSort('room')}><FaSort  className="inline-block"/></button></td>
+              <td>Duration <button onClick={()=>handleSort('location')} className="inline-block"><FaSort/></button></td>
           </tr>
           {items && items.map((item)=>(
               <ItemRow item={item}/>

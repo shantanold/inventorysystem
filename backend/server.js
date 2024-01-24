@@ -1,9 +1,11 @@
 require('dotenv').config()
 const mongoose = require('mongoose')
 const express = require('express')
+const cron = require('node-cron')
 const furnitureRoutes = require('./routes/furniture')
 const userRoutes = require('./routes/users')
 const User = require('./models/userModel')
+const Item = require('./models/itemModel')
 //creates express app
 const app = express()
 //middleware to parse json files
@@ -27,6 +29,28 @@ mongoose.connect(process.env.MONGO_URI)
 .catch((error)=>{
     console.log(error, "is causing errors!")
 })
+
+const updateOperation = {
+  $inc: {
+    duration:-1,
+  }
+}
+
+const updateDocuments = async () => {
+  try {
+    const result = await Item.updateMany({}, updateOperation);
+    console.log(`${result.modifiedCount} documents updated at ${new Date()}`);
+  } catch (error) {
+    console.error('Error updating documents:', error);
+  }
+};
+
+// Schedule the update daily at midnight
+cron.schedule('0 0 * * *', () => {
+  console.log('Running Cron Job');
+  updateDocuments();
+});
+
 //listen for requests
 const checkDocumentExistence = async(criteria) =>{
     try {

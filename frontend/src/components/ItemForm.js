@@ -1,7 +1,9 @@
 import {useState} from 'react'
 import { useFurnitureContext } from '../hooks/useFurnitureContext'
+import './formStyles.css'
 const ItemForm = () =>{
     const {dispatch} = useFurnitureContext()
+    const [showForm, setShowForm] = useState(false);
     const [desc,setDesc] = useState('')
     const [location, setLocation] = useState('')
     const [pic, setPic] = useState('')
@@ -37,8 +39,14 @@ const ItemForm = () =>{
             dispatch({ type: 'CREATE_ITEM', payload: json });
         }
     };
+    const handleToggleForm = () =>{
+        setShowForm(!showForm)
+    }
     return(
-        <form className ="create" onSubmit={handleSubmit}>
+            <div>
+            <button className="hover:bg-red-700 bg-red-500 text-white px-2" onClick={handleToggleForm}>{showForm ? "Hide":"New Item"}</button>
+            
+            {showForm && (<form className ="create" onSubmit={handleSubmit}>
             <h3>Add a new Furniture Piece</h3>
             <label>Item Description</label>
             <input 
@@ -56,7 +64,9 @@ const ItemForm = () =>{
             />
             <label>Optional Picture</label>
             <input 
-            type='text'
+            accept="image/*"
+            type='file'
+            alt={desc}
             onChange={(e)=>setPic(e.target.value)}
             value={pic}
             />
@@ -75,11 +85,14 @@ const ItemForm = () =>{
             className={emptyFields.includes('Duration') ? 'error':''}
             />
 
-            <button>Add item!</button>
+            <button className="hover:bg-red-700 bg-red-500 text-white px-2 my-2">Add item!</button>
             {error && <div className="error">{error}</div>}
 
 
-        </form>
+        </form>)}
+            
+        </div>
+        
     )
 
 }

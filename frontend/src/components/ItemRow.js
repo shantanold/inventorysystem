@@ -13,15 +13,22 @@ const ItemRow = ({item}) => {
             dispatch({type:'DELETE_ITEM', payload:json})
         }
     }
-
+    
     return (
         <tr>
              <td>{item.desc}</td>
               <td>{item.location}</td>
-              <td><img src={item.pic} alt="itemspic" style={{ maxWidth: '300px', maxHeight: '150px' }}/></td>
+              <td>
+                {item.pic!=='' ? (<img
+                 src={item.pic} 
+                 alt="itemspic" 
+                 style={{ maxWidth: '300px', maxHeight: '150px' }}/>):
+                 (<p></p>)}
+                
+              </td>
               <td>{item.room}</td>
               <td>{item.duration} days</td>
-              <td className="delete-button"><span class="icon" onClick={handleClick}><FontAwesomeIcon icon={faTrash} /></span></td>
+              <td className="delete-button"><span className="icon" onClick={handleClick}><FontAwesomeIcon icon={faTrash} /></span></td>
         </tr>
     )
 }
