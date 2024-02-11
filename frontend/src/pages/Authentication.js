@@ -45,16 +45,17 @@ const  Authentication= ({onAuthentication})=> {
   
     return (
   
-      <div className="Authentication">
+      <div className="Authentication flex flex-col items-center">
   
-        <Form onSubmit={handleSubmit}>
+        <Form className="flex flex-col items-center justify-between"onSubmit={handleSubmit}>
   
-          <Form.Group size="lg" controlId="email">
+          <Form.Group  className="flex flex-col items-center py-4" size="lg" controlId="email">
   
             <Form.Label>Email</Form.Label>
   
             <Form.Control
-  
+              className=''
+              
               autoFocus
   
               type="email"
@@ -67,7 +68,7 @@ const  Authentication= ({onAuthentication})=> {
   
           </Form.Group>
   
-          <Form.Group size="lg" controlId="password">
+          <Form.Group className="flex flex-col items-center py-4" size="lg" controlId="password">
   
             <Form.Label>Password</Form.Label>
   
@@ -83,7 +84,7 @@ const  Authentication= ({onAuthentication})=> {
   
           </Form.Group>
   
-          <Button className="bg-slate-800" block size="lg" type="submit" disabled={!validateForm()}>
+          <Button className="text-white bg-rose-500 px-2 py-1 rounded-full" block size="lg" type="submit" disabled={!validateForm()}>
   
             Log In!
   

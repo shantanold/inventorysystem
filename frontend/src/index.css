@@ -1,6 +1,6 @@
 /* google font */
 
-@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
@@ -14,7 +14,8 @@
 body {
   background-color: #f1f1f1;
   margin: 0;
-  font-family: "Rubik";
+  font-family: "Manrope";
+  font-weight: 600;
   
 }
 header {
@@ -32,16 +33,19 @@ header a {
   text-decoration: none;
 }
 .pages{
-  max-width: 1400px;
+  width: 100%;
+  display:flex;
   padding: 20px;
-  margin: 0 auto;
+  justify-content: space-around;
+  /* margin: 0 auto; */
 }
 
 /* homepage */
 .home {
-  display: grid;
-  grid-template-columns: 3fr 1fr;
-  gap: 100px;
+  display: flex;
+  width:80%;
+  justify-content:space-around;
+  
 }
 .workout-details {
   background: #fff;

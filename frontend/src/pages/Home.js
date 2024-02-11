@@ -1,6 +1,6 @@
 import {useEffect} from 'react'
 import { useFurnitureContext } from '../hooks/useFurnitureContext'
-
+import "../index.css"
 import ItemDetails from '../components/ItemDetails'
 import ItemForm from '../components/ItemForm'
 

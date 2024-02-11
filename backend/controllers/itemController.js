@@ -4,20 +4,25 @@ const mongoose = require('mongoose')
 //get all items
 const getItems = async(req,res)=>{
     try {
-        console.log(req.query)
-        const { sortBy } = req.query;
-        const items = await Item.find().sort(sortBy);  // Use the provided sortBy parameter to sort the data
+        
+        
+        const sortBy = req.query.sortBy;
+        // Ensure 'sortBy' is a valid field in your MongoDB documents
+        const finalIn = sortBy=='' ? 'desc':sortBy;
+        const sortField = { [finalIn]: 1 }; // 1 for ascending, -1 fo
+        const items = await Item.find().sort(sortField);  // Use the provided sortBy parameter to sort the data
+        
         res.json(items);
+
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 }
 const getItemsDescriptionSorted = async(req,res)=>{
-    
-    // console.log("howdy doo lets get this shit")
-    // const items = await Item.find({}).sort({desc:-1})
-    // res.status(200).json(items)
+    console.log("howdy doo lets get this shit")
+    const items = await Item.find({}).sort({desc:-1})
+    res.status(200).json(items)
 }
 const getItemsLocationSorted = async(req,res)=>{
     const items = await Item.find({}).sort({location:-1})

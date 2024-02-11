@@ -23,13 +23,13 @@ router.delete('/:id',deleteItem)
 
 router.patch('/:id',updateItem)
 
-router.get('/desc',getItemsDescriptionSorted)
+// router.get('sort/desc', getItemsDescriptionSorted)
 
-router.get('/duration',getItemsDurationSorted)
+// router.get('sort/duration', getItemsDurationSorted)
 
-router.get('/room',getItemsRoomSorted)
+// router.get('sort/room', getItemsRoomSorted)
 
-router.get('/location',getItemsLocationSorted)
+// router.get('sort/location', getItemsLocationSorted)
 
 
 module.exports = router

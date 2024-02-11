@@ -1,4 +1,7 @@
 require('dotenv').config()
+// import cors from 'cors';
+// import cookieParser from 'cookie-parser';
+// import jwt from 'jsonwebtoken';
 const mongoose = require('mongoose')
 const express = require('express')
 const cron = require('node-cron')
@@ -6,8 +9,11 @@ const furnitureRoutes = require('./routes/furniture')
 const userRoutes = require('./routes/users')
 const User = require('./models/userModel')
 const Item = require('./models/itemModel')
+var session = require('express-session')
 //creates express app
 const app = express()
+var bodyParser = require('body-parser')
+var cookieParser = require('cookie-parser')
 //middleware to parse json files
 app.use(express.json())
 //middleware to log out incoming requests
@@ -15,6 +21,17 @@ app.use((req, res, next)=>{
     console.log(req.path, req.method)
     next()
 })
+app.use(session({
+  secret: 'your-secret-key',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false } // not using HTTPS
+}));
+// app.use(cors(
+//  { origin:[""],
+//   methods: ["POST, GET"],
+//   credentials:true}
+// ))
 //routes
 app.use('/api/furniture',furnitureRoutes)
 app.use('/api/users', userRoutes)
@@ -29,6 +46,29 @@ mongoose.connect(process.env.MONGO_URI)
 .catch((error)=>{
     console.log(error, "is causing errors!")
 })
+
+// app.set('trust proxy', 1) // trust first proxy
+// app.use(session({  
+//   name: `databaseAccess`,
+//   secret: 'some-secret-example',  
+//   resave: false,
+//   saveUninitialized: false,
+//   cookie: { 
+//     secure: false, // This will only work if you have https enabled!
+//     maxAge: 60000 // 1 min
+//   } 
+// }));
+// var sessionChecker = (req, res, next) => {    
+//   console.log(`Session Checker: ${req.session.id}`.green);
+//   console.log(req.session);
+//   if (req.session.profile) {
+//       console.log(`Found User Session`.green);
+//       next();
+//   } else {
+//       console.log(`No User Session Found`.red);
+//       res.redirect('/login');
+//   }
+// };
 
 const updateOperation = {
   $inc: {

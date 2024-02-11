@@ -2,3 +2,52 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+/* === removing default button style ===*/
+
+/* Import the Rubik font */
+
+
+/* Additional styles can be added as needed */
+.allEncompassing {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  transition: opacity 0.3s ease; /* Add opacity transition */
+}
+
+.form-hidden {
+  opacity: 0; /* Initially hide the form */
+  pointer-events: none; /* Disable interaction when hidden */
+}
+
+.form-visible {
+  opacity: 1; /* Show the form */
+  pointer-events: auto; /* Enable interaction when visible */
+}
+
+.submitButton{
+    color:white;
+    --tw-bg-opacity: 1;
+    background-color: rgb(244 63 94 / var(--tw-bg-opacity));    width:120px;
+    height:25px;
+    border-radius: 25px;
+    font-weight:300;
+    transition: transform 0.3s ease;
+}
+.submitButton:hover{
+    transform:scale3d(1.15,1.15,1.0) ; /* Make it look a little bigger when we hover over it */
+
+}
+.newItemButton{
+    color:white;
+    --tw-bg-opacity: 1;
+    background-color: rgb(244 63 94 / var(--tw-bg-opacity));
+    width: 90px;
+    font-weight: 300;
+    border-radius: 25px;
+    transition: transform 0.3s ease-in-out;
+}
+.newItemButton:hover{
+    transform:scale3d(1.1,1.1,1);
+}

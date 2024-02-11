@@ -28,6 +28,12 @@
     font-size: 18px;
     text-align: center;
     line-height: 30px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+  }
+  .icon:hover{
+    transform: scale3d(1.1, 1.1, 1);
+   
   }
   .styled-table img {
     max-width: 100%;
@@ -35,4 +41,8 @@
     display: block;
     margin: 0 auto; /* Center the image within its cell */
   }
-  
+  .delete-button{
+    display:flex;
+    justify-content: center;
+    
+  }

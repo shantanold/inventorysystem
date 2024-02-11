@@ -15,7 +15,7 @@ const Navbar = ({isAuthenticated}) => {
           Database
          </button>
           </Link>
-          <Link to={{ pathname: "/", state: { data: isAuthenticated } }}>
+          <Link to={{ pathname: isAuthenticated ? "/" : "/login", state: { data: isAuthenticated } }}>
         <button onClick={signOut}
          className="navButton hover:border-transparent hover:bg-rose-500 hover:text-white absolute top-2 right-0 mr-4 mt-2 px-3 rounded-full border-solid border-gray-500">
           {isAuthenticated? "Sign Out": "Log in"}

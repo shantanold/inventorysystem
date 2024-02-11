@@ -43,10 +43,11 @@ const ItemForm = () =>{
         setShowForm(!showForm)
     }
     return(
-            <div>
-            <button className="hover:bg-red-700 bg-red-500 text-white px-2" onClick={handleToggleForm}>{showForm ? "Hide":"New Item"}</button>
-            
-            {showForm && (<form className ="create" onSubmit={handleSubmit}>
+           <div className={`allEncompassing`}>
+      <button className="newItemButton" onClick={handleToggleForm}>
+        {showForm ? 'Hide' : 'New Item'}
+      </button>
+            <form className ={`create text-center ${showForm ? 'form-visible' : 'form-hidden'}`} onSubmit={handleSubmit}>
             <h3>Add a new Furniture Piece</h3>
             <label>Item Description</label>
             <input 
@@ -85,11 +86,11 @@ const ItemForm = () =>{
             className={emptyFields.includes('Duration') ? 'error':''}
             />
 
-            <button className="hover:bg-red-700 bg-red-500 text-white px-2 my-2">Add item!</button>
+            <button className=" text-white px-2 my-2 submitButton">Add item!</button>
             {error && <div className="error">{error}</div>}
 
 
-        </form>)}
+        </form>
             
         </div>
         

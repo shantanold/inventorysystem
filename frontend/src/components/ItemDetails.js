@@ -1,88 +1,54 @@
 import ItemRow from "./ItemRow";
-import "./tableStyles.css"
+import "./tableStyles.css";
 import { FaSort } from "react-icons/fa";
-import {useState, useEffect} from 'react';
-import axios from 'axios'
-const ItemDetails = ({ items }) => {
-   const [data, setData] = useState([]);
-   const [sortBy, setSortBy]=useState('')
-    const fetchData = async () => {
-      try {
-          const response = await axios.get(`/api/furniture?sortBy=${sortBy}`);
-          console.log(response.data)
-          console.log(sortBy)
-          setData(response.data);
-      } catch (error) {
-          console.error(error);
-      }
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useFurnitureContext } from "../context/FurnitureContext";
+
+const ItemDetails = () => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const {state, dispatch} = useFurnitureContext();
+  const {items, sortBy} = state;
+  const fetchData = async () => {
+    setLoading(true); // Set loading to true before fetching data
+    try {
+      const response = await axios.get(`/api/furniture?sortBy=${sortBy}`);
+      dispatch({ type: 'SET_ITEMS', payload: response.data });
+    } catch (error) {
+      console.error(error);
+    }
+    finally {
+      setLoading(false); // Set loading to false after fetching data
+    }
   };
-  useEffect(()=>{
-    
-    fetchData();
+
+  useEffect(() => {
+    if(sortBy){
+      fetchData();
+    }
   }, [sortBy]);
-  const handleSort= (sortByValue)=>{
-    setSortBy(sortByValue);
+
+  const handleSort = (sortByValue) => {
+    dispatch({ type: 'SET_SORT_BY', payload: sortByValue });
   }
 
-    const handleDescSort = async() =>{
-      const response = await fetch('/api/furniture/desc', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-    if(response.ok){
-      console.log("response was ok, sorting by description")
-      console.log(response)
-      
-    }
-    else{
-      console.log('response was not ok, womp womp')
-    }
-    }
-    const handleLocationSort = async() =>{
-      const response = await fetch('/api/furniture/location', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-    }
-    const handleDurationSort = async() =>{
-      const response = await fetch('/api/furniture/duration', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-    }
-    const handleRoomSort = async() =>{
-      const response = await fetch('/api/furniture/room', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-    }
-    return (
-       
-      <div>
-       <table className="styled-table">
-          <tr>
-              <td className="">Description <button onClick={() => handleSort('desc')}><FaSort  className="inline-block"/></button></td>
-              <td>Location <button onClick={()=>handleSort('location')}><FaSort  className="inline-block"/></button></td>
-              <td>Picture </td>
-              <td>Room <button onClick={()=>handleSort('room')}><FaSort  className="inline-block"/></button></td>
-              <td>Duration <button onClick={()=>handleSort('location')} className="inline-block"><FaSort/></button></td>
-          </tr>
-          {items && items.map((item)=>(
-              <ItemRow item={item}/>
-                ))}
-         
-       </table>
-      </div>
-    );
-  };
-  
-  export default ItemDetails;
-  
+  return (
+    <div>
+      <table className="styled-table">
+        <tr>
+          <td className="">Description <button onClick={() => handleSort('desc')}><FaSort className="inline-block" /></button></td>
+          <td>Location <button onClick={() => handleSort('location')}><FaSort className="inline-block" /></button></td>
+          <td>Picture </td>
+          <td>Room <button onClick={() => handleSort('room')}><FaSort className="inline-block" /></button></td>
+          <td>Duration <button onClick={() => handleSort('duration')} className="inline-block"><FaSort /></button></td>
+        </tr>
+        {items && items.map((item) => (
+          <ItemRow item={item} key={item.id} />
+        ))}
+      </table>
+    </div>
+  );
+};
+
+export default ItemDetails;

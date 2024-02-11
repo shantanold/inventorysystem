@@ -10,16 +10,8 @@ const {
     authenticateUser
     } = require('../controllers/userController')
 
-router.get('/',getUsers)
-
-router.get('/:id',getUser)
-
-router.post('/',createUser)
-
-router.post('/authenticate',authenticateUser)
-
-router.delete('/:id',deleteUser)
-
-router.patch('/:id',updateUser)
+// router.get('/', sessionChecker, async function(req, res, next) {
+//     res.redirect('/account');
+// });
 
 module.exports = router
