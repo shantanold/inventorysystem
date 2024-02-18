@@ -27,14 +27,22 @@ app.use(session({
   saveUninitialized: false,
   cookie: { secure: false } // not using HTTPS
 }));
-// app.use(cors(
-//  { origin:[""],
-//   methods: ["POST, GET"],
-//   credentials:true}
-// ))
+
 //routes
 app.use('/api/furniture',furnitureRoutes)
 app.use('/api/users', userRoutes)
+const requireLogin = (req, res, next) => {
+  if (req.session.loggedIn) {
+    next();
+  } else {
+    res.redirect('/login');
+  }
+};
+
+// Apply middleware to protected routes
+app.get('api/furniture', requireLogin, (req, res) => {
+  res.send('database');
+});
 //connect to db
 mongoose.connect(process.env.MONGO_URI)
 .then(()=>{
@@ -47,28 +55,7 @@ mongoose.connect(process.env.MONGO_URI)
     console.log(error, "is causing errors!")
 })
 
-// app.set('trust proxy', 1) // trust first proxy
-// app.use(session({  
-//   name: `databaseAccess`,
-//   secret: 'some-secret-example',  
-//   resave: false,
-//   saveUninitialized: false,
-//   cookie: { 
-//     secure: false, // This will only work if you have https enabled!
-//     maxAge: 60000 // 1 min
-//   } 
-// }));
-// var sessionChecker = (req, res, next) => {    
-//   console.log(`Session Checker: ${req.session.id}`.green);
-//   console.log(req.session);
-//   if (req.session.profile) {
-//       console.log(`Found User Session`.green);
-//       next();
-//   } else {
-//       console.log(`No User Session Found`.red);
-//       res.redirect('/login');
-//   }
-// };
+
 
 const updateOperation = {
   $inc: {

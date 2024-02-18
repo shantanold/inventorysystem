@@ -1,9 +1,23 @@
 import { Link } from 'react-router-dom';
 import "./navbarStyles.css";
 
-const Navbar = ({isAuthenticated}) => {
-  function signOut() {
-    isAuthenticated=false
+const Navbar = ({isAuthenticated, logOut}) => {
+  const signOut = async(e) =>{
+    try{
+      const response = await fetch('/api/users/authenticate',{
+        method:'DELETE',
+        headers:{
+          'Content-Type':'application/json'
+        },
+      })
+      if(response.ok){
+        console.log(response, " is the response fam...")
+        logOut(false);
+      }
+    }
+    catch(error){
+      console.error("Authentication error",error)
+    }
   }
   return (
     <header className='relative'>

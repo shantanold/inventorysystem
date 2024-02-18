@@ -96,20 +96,33 @@ const checkDocumentExistence = async(criteria) =>{
       }
   }
 
-const authenticateUser = async(req, res)=>{
-    const {email, password} = req.body
-    const isValid = await checkDocumentExistence({email:email, password:password})
-    console.log("this is isValid: ", isValid)
-    if(isValid){
-        console.log('yuh its valid indeed!!\n')
-        return res.status(200).json({email, password})
+  const authenticateUser = async (req, res) => {
+    const { email, password } = req.body;
+    const isValid = await checkDocumentExistence({ email: email, password: password });
+    console.log("this is isValid: ", isValid);
+    if (isValid) {
+        req.session.loggedIn = true;
+        req.session.user = { username: 'example' };
+        console.log('yuh its valid indeed!!');
+        //return res.redirect('/db')
+        return res.status(200).json({ email, password });
+        
+    } else {
+        return res.status(400).json({ error: "epic fail!" });
     }
-    else{
-        return res.status(400).json({error:"epic fail!"})
-    }
-    
-    return res.status(200).json({mssg:"successfull call"})
 }
+const unAuthenticateUser = async (req, res) =>{
+    req.session.destroy(err=>{
+        if(err){
+            console.error("error logging out", err);
+            return res.status(500).json({error:"Internal server error"});
+        }
+        console.log("successful log out");
+        return res.status(200).json({message:"Logout successful"});
+    })
+}
+
+
 
 
 
@@ -119,5 +132,6 @@ module.exports = {
     getUser,
     deleteUser,
     updateUser,
-    authenticateUser
+    authenticateUser,
+    unAuthenticateUser
 }

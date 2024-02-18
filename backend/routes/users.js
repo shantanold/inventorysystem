@@ -7,11 +7,13 @@ const {
     getUser,
     deleteUser,
     updateUser,
-    authenticateUser
+    authenticateUser,
+    unAuthenticateUser
     } = require('../controllers/userController')
 
 // router.get('/', sessionChecker, async function(req, res, next) {
 //     res.redirect('/account');
 // });
-
+    router.post('/authenticate', authenticateUser)
+    router.delete('/authenticate', unAuthenticateUser)
 module.exports = router
