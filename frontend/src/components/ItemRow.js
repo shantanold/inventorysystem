@@ -43,6 +43,15 @@ const ItemRow = ({item}) => {
         // Convert hue to HSL color format
         return `hsl(${hue}, 65%, 75%)`; // Adjust saturation and lightness as needed
     };
+    const formatDate = (dateString) =>{
+        const dateObj = new Date(dateString);
+        const formattedDate = dateObj.toLocaleDateString('en-US', { 
+            month: '2-digit', 
+            day: '2-digit', 
+            year: 'numeric' 
+        });
+        return formattedDate;
+    }
     
     
     
@@ -60,6 +69,7 @@ const ItemRow = ({item}) => {
               </td>
               <td>{item.room}</td>
               <td>{item.duration} days</td>
+              <td>{formatDate(item.createdAt)}</td>
               <td className="delete-button"><span className="icon" onClick={handleClick}><FontAwesomeIcon icon={faTrash} /></span></td>
         </tr>
     )

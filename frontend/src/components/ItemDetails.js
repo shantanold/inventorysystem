@@ -42,6 +42,7 @@ const ItemDetails = () => {
           <td>Picture </td>
           <td>Room <button onClick={() => handleSort('room')}><FaSort className="inline-block" /></button></td>
           <td>Duration <button onClick={() => handleSort('duration')} className="inline-block"><FaSort /></button></td>
+          <td>Date Added<button onClick={() => handleSort('createdAt')} className="inline-block"><FaSort /></button></td>
         </tr>
         {items && items.map((item) => (
           <ItemRow item={item} key={item.id} />

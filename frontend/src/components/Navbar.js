@@ -22,7 +22,7 @@ const Navbar = ({isAuthenticated, logOut}) => {
   return (
     <header className='relative'>
       <div className="font-sans border-b-1  flex flex-col justify-center items-center h-16 px-4 ">
-        <Link to='/'><h1 className="text-xl">Red Dot Home Services</h1></Link>
+        <Link to='/'><h1 className="text-xl">Inventory Management</h1></Link>
           <Link to="db">
           <button
          className="navButton absolute top-2 left-0 ml-4 mt-2 px-3 rounded-full border-solid border-gray-500 hover:border-transparent hover:bg-rose-500 hover:text-white">

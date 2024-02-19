@@ -38,7 +38,7 @@ const  Authentication= ({onAuthentication})=> {
         if (response.ok) {
           setBadLogin(false);
           onAuthentication();
-          navigate("/db")
+          navigate('/db?loginSuccess=true');
         }
         else{
           setBadLogin(true);
